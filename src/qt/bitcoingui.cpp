@@ -1172,9 +1172,22 @@ void BitcoinGUI::updateStakingIcon()
         {
             text = tr("%n day(s)", "", nEstimateTime/(60*60*24));
         }
+		
+        uint64_t chanceToStake;
+        uint64_t diff;
+
+        chanceToStake = (nWeight * 10000) / nNetworkWeight;
+
+        for (uint64_t i=0; i<30; i++ )
+        {
+        diff = 10000 - chanceToStake;
+        chanceToStake += (nWeight * diff) / nNetworkWeight;
+        }
+
+        chanceToStake = chanceToStake / 100;
 
         labelStakingIcon->setPixmap(QIcon(":/icons/staking_on").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelStakingIcon->setToolTip(tr("Staking.<br>Your weight is %1<br>Network weight is %2<br>Expected time to earn reward is %3").arg(nWeight).arg(nNetworkWeight).arg(text));
+        labelStakingIcon->setToolTip(tr("Staking.<br>Your weight is %1<br>Network weight is %2<br>Expected time to earn reward is %3<br>Chance to stake within an hour: %4\%").arg(nWeight).arg(nNetworkWeight).arg(text).arg(chanceToStake));
     }
     else
     {
