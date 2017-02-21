@@ -1,0 +1,9 @@
+Building Seedpay
+
+See doc/readme-qt.rst for instructions on building Seedpay QT,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of Seedpay.
+
+See doc/build-*.txt for instructions on building Seedpayd,
+the intended-for-services, no-graphical-interface, reference
+implementation of Seedpay.
