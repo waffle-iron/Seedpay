@@ -26,8 +26,6 @@ class CInv;
 class CRequestTracker;
 class CNode;
 
-static const int LAST_POW_BLOCK = 14000;
-
 static const unsigned int MAX_BLOCK_SIZE = 1000000;
 static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
 static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
@@ -35,7 +33,7 @@ static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
 static const unsigned int MAX_INV_SZ = 50000;
 static const int64_t MIN_TX_FEE = 10000;
 static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
-static const int64_t MAX_MONEY = 7170000 * COIN; // Not exact amount created from POW
+static const int64_t MAX_MONEY = 50000000 * COIN; // Not exact amount created from POW
 static const int64_t COIN_YEAR_REWARD = 5 * CENT; // 5% per year
 
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
@@ -43,7 +41,7 @@ inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MO
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 
 
-static const uint256 hashGenesisBlock("0x00000bf2d0954742068a5375a422014a6b81a2299c9b0ac7be67912b7a511814");
+static const uint256 hashGenesisBlock("0x0000077828e0c127b361368fd171f6b70f43b3e471b8e46d0e7b98c64b3bc4e0");
 static const uint256 hashGenesisBlockTestNet("0x");
 
 
@@ -57,6 +55,7 @@ extern std::set<std::pair<COutPoint, unsigned int> > setStakeSeen;
 extern CBlockIndex* pindexGenesisBlock;
 extern unsigned int nTargetSpacing;
 extern unsigned int nStakeMinAge;
+extern unsigned int nStakeMaxAge;
 extern unsigned int nNodeLifespan;
 extern int nCoinbaseMaturity;
 extern int nBestHeight;

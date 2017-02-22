@@ -41,6 +41,7 @@ CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 
 unsigned int nTargetSpacing     = 60;               // 60 seconds
 unsigned int nStakeMinAge       = 1 * 60 * 60;      // 1 hour min stake age
+unsigned int nStakeMaxAge       = 8 * 60 * 60;      // 8 hours max stake age
 unsigned int nModifierInterval  = 10 * 60;          // time to elapse before new modifier is computed
 
 int nCoinbaseMaturity = 20;
@@ -274,7 +275,7 @@ bool CTransaction::ReadFromDisk(CTxDB& txdb, const uint256& hash, CTxIndex& txin
 bool CTransaction::ReadFromDisk(CTxDB& txdb, COutPoint prevout, CTxIndex& txindexRet)
 {
     if (!ReadFromDisk(txdb, prevout.hash, txindexRet))
-        return false;
+        return false;	
     if (prevout.n >= vout.size())
     {
         SetNull();
@@ -994,8 +995,6 @@ int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
 
     return nSubsidy + nFees;
 }
-
-const int YEARLY_BLOCKCOUNT = 525600;
 
 // miner's coin stake reward based on coin age spent (coin-days)
 int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
@@ -2069,9 +2068,6 @@ bool CBlock::AcceptBlock()
     CBlockIndex* pindexPrev = (*mi).second;
     int nHeight = pindexPrev->nHeight+1;
 
-    if (IsProofOfWork() && nHeight > LAST_POW_BLOCK)
-        return DoS(100, error("AcceptBlock() : reject proof-of-work at height %d", nHeight));
-
     // Check proof-of-work or proof-of-stake
     if (nBits != GetNextTargetRequired(pindexPrev, IsProofOfStake()))
         return DoS(100, error("AcceptBlock() : incorrect %s", IsProofOfWork() ? "proof-of-work" : "proof-of-stake"));
@@ -2453,9 +2449,9 @@ bool LoadBlockIndex(bool fAllowNew)
         if (!fAllowNew)
             return false;
 
-        const char* pszTimestamp = "Seedpay - SPY";
+        const char* pszTimestamp = "Seeeeeeeeeeeeeeeeeeeedpay";
         CTransaction txNew;
-        txNew.nTime = 1487713155;
+        txNew.nTime = 1487783618;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 0 << CBigNum(42) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
@@ -2466,10 +2462,10 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1487713155;
+        block.nTime    = 1487783618;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
-        block.nNonce   = 3144579;
-		if(fTestNet)
+        block.nNonce   = 122744;
+        if(fTestNet)
         {
             block.nNonce   = 0;
         }
@@ -2496,7 +2492,7 @@ bool LoadBlockIndex(bool fAllowNew)
         
         
         //// debug print
-        assert(block.hashMerkleRoot == uint256("0x2bac6fe33f71003dbe27727088e5d01ad851ba3a62615bc88912d97943f03596"));
+        assert(block.hashMerkleRoot == uint256("0xa3ec68156d7598a49e68ac207290eb090963f99737b225b7687416d44f1b3798"));
         block.print();
         assert(block.GetHash() == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
         assert(block.CheckBlock());

@@ -14,7 +14,6 @@
 
 const uint8_t stealth_version_byte = 0x28;
 
-
 bool CStealthAddress::SetEncoded(const std::string& encodedAddress)
 {
     data_chunk raw;

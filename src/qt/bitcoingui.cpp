@@ -186,6 +186,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralWidget->addWidget(receiveCoinsPage);
     centralWidget->addWidget(sendCoinsPage);
     centralWidget->addWidget(messagePage);
+	
     setCentralWidget(centralWidget);
 
     // Create status bar
@@ -324,7 +325,7 @@ void BitcoinGUI::createActions()
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
     connect(messageAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(messageAction, SIGNAL(triggered()), this, SLOT(gotoMessagePage()));
-
+	
     quitAction = new QAction(QIcon(":/icons/quit"), tr("E&xit"), this);
     quitAction->setToolTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
@@ -410,10 +411,12 @@ void BitcoinGUI::createToolBars()
 {
     mainIcon = new QLabel (this);
     mainIcon->setPixmap(QPixmap(":images/vertical"));
-    mainIcon->show();
+    mainIcon->hide();
 
     mainToolbar = addToolBar(tr("Tabs toolbar"));
     mainToolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    mainToolbar->setOrientation(Qt::Vertical);
+    mainToolbar->setMovable(false);
     mainToolbar->addWidget(mainIcon);
     mainToolbar->addAction(overviewAction);
     mainToolbar->addAction(sendCoinsAction);
@@ -422,14 +425,15 @@ void BitcoinGUI::createToolBars()
     mainToolbar->addAction(addressBookAction);
     mainToolbar->addAction(messageAction);
 
+    addToolBar(Qt::LeftToolBarArea, mainToolbar);
+
     secondaryToolbar = addToolBar(tr("Actions toolbar"));
     secondaryToolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    secondaryToolbar->setOrientation(Qt::Vertical);
+    secondaryToolbar->setMovable(false);
     secondaryToolbar->addAction(exportAction);
 
-    connect(mainToolbar,      SIGNAL(orientationChanged(Qt::Orientation)), this, SLOT(mainToolbarOrientation(Qt::Orientation)));
-    connect(secondaryToolbar, SIGNAL(orientationChanged(Qt::Orientation)), this, SLOT(secondaryToolbarOrientation(Qt::Orientation)));
-    mainToolbarOrientation(mainToolbar->orientation());
-    secondaryToolbarOrientation(secondaryToolbar->orientation());
+    addToolBar(Qt::LeftToolBarArea, secondaryToolbar);
 }
 
 void BitcoinGUI::setClientModel(ClientModel *clientModel)
@@ -1131,7 +1135,7 @@ void BitcoinGUI::updateStakingIcon()
         {
             text = tr("%n day(s)", "", nEstimateTime/(60*60*24));
         }
-		
+
         uint64_t chanceToStake;
         uint64_t diff;
 

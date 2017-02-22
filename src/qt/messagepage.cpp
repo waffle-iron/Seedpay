@@ -80,7 +80,7 @@ MessagePage::MessagePage(QWidget *parent) :
     messageTextEdit(new MRichTextEdit())
 {
     ui->setupUi(this);
-	ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
    
     
 #ifdef Q_OS_MAC // Icons on push buttons are very uncommon on Mac
