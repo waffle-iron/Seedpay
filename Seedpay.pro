@@ -32,20 +32,6 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 # BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 # BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
 
-BOOST_LIB_SUFFIX=-mgw49-mt-s-1_57
-BOOST_INCLUDE_PATH=C:/Development/Dependencies/boost_1_57_0
-BOOST_LIB_PATH=C:/Development/Dependencies/boost_1_57_0/stage/lib
-BDB_INCLUDE_PATH=C:/Development/Dependencies/db-4.8.30.NC/build_unix
-BDB_LIB_PATH=C:/Development/Dependencies/db-4.8.30.NC/build_unix
-OPENSSL_INCLUDE_PATH=C:/Development/Dependencies/openssl-1.0.1p/include
-OPENSSL_LIB_PATH=C:/Development/Dependencies/openssl-1.0.1p/lib
-MINIUPNPC_INCLUDE_PATH=C:/Development/Dependencies
-LIBPNG_INCLUDE_PATH=C:/Development/Dependencies/libpng-1.6.14
-LIBPNG_LIB_PATH=C:/Development/Dependencies/libpng-1.6.14/.libs
-MINIUPNPC_LIB_PATH=C:/Development/Dependencies/miniupnpc
-QRENCODE_INCLUDE_PATH=C:/Development/Dependencies/qrencode-3.4.4
-QRENCODE_LIB_PATH=C:/Development/Dependencies/qrencode-3.4.4/.libs
-
 OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
@@ -412,19 +398,15 @@ OTHER_FILES += \
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
-    macx:BOOST_LIB_SUFFIX = -mt
     windows:BOOST_LIB_SUFFIX=-mgw49-mt-s-1_57
 }
 
 isEmpty(BOOST_THREAD_LIB_SUFFIX) {
     BOOST_THREAD_LIB_SUFFIX = $$BOOST_LIB_SUFFIX
-    #win32:BOOST_THREAD_LIB_SUFFIX = _win32$$BOOST_LIB_SUFFIX
-    #else:BOOST_THREAD_LIB_SUFFIX = $$BOOST_LIB_SUFFIX
 }
 
 isEmpty(BDB_LIB_PATH) {
-    macx:BDB_LIB_PATH = /usr/local/Cellar/berkeley-db4/4.8.30/lib
-    windows:BDB_LIB_PATH=D:/deps/db-4.8.30.NC/build_unix
+    windows:BDB_LIB_PATH=C:/Development/Dependencies/db-4.8.30.NC/build_unix
 }
 
 isEmpty(BDB_LIB_SUFFIX) {
@@ -432,28 +414,23 @@ isEmpty(BDB_LIB_SUFFIX) {
 }
 
 isEmpty(BDB_INCLUDE_PATH) {
-    macx:BDB_INCLUDE_PATH = /usr/local/Cellar/berkeley-db4/4.8.30/include
-    windows:BDB_INCLUDE_PATH=D:/deps/db-4.8.30.NC/build_unix
+    windows:BDB_INCLUDE_PATH=C:/Development/Dependencies/db-4.8.30.NC/build_unix
 }
 
 isEmpty(BOOST_LIB_PATH) {
-    macx:BOOST_LIB_PATH = /usr/local/Cellar/boost/1.59.0/lib
-    windows:BOOST_LIB_PATH=D:/deps/boost_1_57_0/stage/lib
+    windows:BOOST_LIB_PATH=C:/Development/Dependencies/boost_1_57_0/stage/lib
 }
 
 isEmpty(BOOST_INCLUDE_PATH) {
-    macx:BOOST_INCLUDE_PATH = /usr/local/Cellar/boost/1.59.0/include
-    windows:BOOST_INCLUDE_PATH=D:/deps/boost_1_57_0
+    windows:BOOST_INCLUDE_PATH=C:/Development/Dependencies/boost_1_57_0
 }
 
 isEmpty(QRENCODE_LIB_PATH) {
-    macx:QRENCODE_LIB_PATH = /usr/local/lib
-	windows:QRENCODE_LIB_PATH=D:/deps/qrencode-3.4.4/.libs
+	windows:QRENCODE_LIB_PATH=C:/Development/Dependencies/qrencode-3.4.4/.libs
 }
 
 isEmpty(QRENCODE_INCLUDE_PATH) {
-    macx:QRENCODE_INCLUDE_PATH = /usr/local/include
-	windows:QRENCODE_INCLUDE_PATH=D:/deps/qrencode-3.4.4
+	windows:QRENCODE_INCLUDE_PATH=C:/Development/Dependencies/qrencode-3.4.4
 }
 
 isEmpty(MINIUPNPC_LIB_SUFFIX) {
@@ -461,23 +438,27 @@ isEmpty(MINIUPNPC_LIB_SUFFIX) {
 }
 
 isEmpty(MINIUPNPC_INCLUDE_PATH) {
-    macx:MINIUPNPC_INCLUDE_PATH=/usr/local/Cellar/miniupnpc/1.9.20151008/include
-    windows:MINIUPNPC_INCLUDE_PATH=D:/deps/
+    windows:MINIUPNPC_INCLUDE_PATH=C:/Development/Dependencies/
 }
 
 isEmpty(MINIUPNPC_LIB_PATH) {
-    macx:MINIUPNPC_LIB_PATH=/usr/local/Cellar/miniupnpc/1.9.20151008/lib
-    windows:MINIUPNPC_LIB_PATH=D:/deps/miniupnpc
+    windows:MINIUPNPC_LIB_PATH=C:/Development/Dependencies/miniupnpc
 }
 
 isEmpty(OPENSSL_INCLUDE_PATH) {
-    macx:OPENSSL_INCLUDE_PATH = /usr/local/openssl-1.0.1p/include
-    windows:OPENSSL_INCLUDE_PATH=D:/deps/openssl-1.0.1p/include
+    windows:OPENSSL_INCLUDE_PATH=C:/Development/Dependencies/openssl-1.0.1p/include
 }
 
 isEmpty(OPENSSL_LIB_PATH) {
-    macx:OPENSSL_LIB_PATH = /usr/local/openssl-1.0.1p/lib
-    windows:OPENSSL_LIB_PATH=D:/deps/openssl-1.0.1p/lib
+    windows:OPENSSL_LIB_PATH=C:/Development/Dependencies/openssl-1.0.1p/lib
+}
+
+isEmpty(LIBPNG_INCLUDE_PATH) {
+    windows:LIBPNG_INCLUDE_PATH=C:/Development/Dependencies/libpng-1.6.14
+}
+
+isEmpty(LIBPNG_LIB_PATH) {
+    windows:LIBPNG_LIB_PATH=C:/Development/Dependencies/libpng-1.6.14/.libs
 }
 
 windows:DEFINES += WIN32
@@ -510,8 +491,8 @@ macx:QMAKE_LFLAGS_THREAD += -pthread
 macx:QMAKE_CXXFLAGS_THREAD += -pthread
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
-INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH $$MINIUPNPC_INCLUDE_PATH
-LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,) $$join(MINIUPNPC_LIB_PATH,,-L,)
+INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH $$MINIUPNPC_INCLUDE_PATH $$LIBPNG_INCLUDE_PATH
+LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,) $$join(MINIUPNPC_LIB_PATH,,-L,) $$join(LIBPNG_LIB_PATH,,-L,)
 LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX
 # -lgdi32 has to happen after -lcrypto (see  #681)
 windows:LIBS += -lws2_32 -lshlwapi -lmswsock -lole32 -loleaut32 -luuid -lgdi32 -lminiupnpc -liphlpapi
