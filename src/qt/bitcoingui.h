@@ -15,7 +15,6 @@ class TransactionView;
 class OverviewPage;
 class AddressBookPage;
 class MessagePage;
-class BlockBrowser;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
 class Notificator;
@@ -87,7 +86,6 @@ private:
     QStackedWidget *centralWidget;
 
     OverviewPage *overviewPage;
-	BlockBrowser *blockBrowser;
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
     AddressBookPage *receiveCoinsPage;
@@ -107,7 +105,6 @@ private:
 
     QMenuBar *appMenuBar;
     QAction *overviewAction;
-	QAction *blockAction;
     QAction *historyAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
@@ -176,8 +173,6 @@ public slots:
 private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
-	/** Switch to block explorer*/
-    void gotoBlockBrowser();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to address book page */
