@@ -1137,6 +1137,21 @@ int64_t CWallet::GetUnconfirmedBalance() const
     return nTotal;
 }
 
+int64_t CWallet::GetConfirmingBalance() const
+{
+    int64_t nTotal = 0;
+    {
+        LOCK2(cs_main, cs_wallet);
+        for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
+        {
+            const CWalletTx* pcoin = &(*it).second;
+            if (!pcoin->IsRecommended())
+                nTotal += pcoin->GetAvailableCredit();
+        }
+    }
+    return nTotal;
+}
+
 int64_t CWallet::GetImmatureBalance() const
 {
     int64_t nTotal = 0;
@@ -2378,18 +2393,6 @@ bool CWallet::GetStakeWeight(const CKeyStore& keystore, uint64_t& nMinWeight, ui
         if (nTimeWeight > 0)
         {
             nWeight += bnCoinDayWeight.getuint64();
-        }
-
-        // Weight is greater than zero, but the maximum value isn't reached yet
-        if (nTimeWeight > 0 && nTimeWeight < nStakeMaxAge)
-        {
-            nMinWeight += bnCoinDayWeight.getuint64();
-        }
-
-        // Maximum weight was reached
-        if (nTimeWeight == nStakeMaxAge)
-        {
-            nMaxWeight += bnCoinDayWeight.getuint64();
         }
     }
 

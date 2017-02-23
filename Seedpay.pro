@@ -453,14 +453,6 @@ isEmpty(OPENSSL_LIB_PATH) {
     windows:OPENSSL_LIB_PATH=C:/Development/Dependencies/openssl-1.0.1p/lib
 }
 
-isEmpty(LIBPNG_INCLUDE_PATH) {
-    windows:LIBPNG_INCLUDE_PATH=C:/Development/Dependencies/libpng-1.6.14
-}
-
-isEmpty(LIBPNG_LIB_PATH) {
-    windows:LIBPNG_LIB_PATH=C:/Development/Dependencies/libpng-1.6.14/.libs
-}
-
 windows:DEFINES += WIN32
 windows:RC_FILE = src/qt/res/bitcoin-qt.rc
 
@@ -491,8 +483,8 @@ macx:QMAKE_LFLAGS_THREAD += -pthread
 macx:QMAKE_CXXFLAGS_THREAD += -pthread
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
-INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH $$MINIUPNPC_INCLUDE_PATH $$LIBPNG_INCLUDE_PATH
-LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,) $$join(MINIUPNPC_LIB_PATH,,-L,) $$join(LIBPNG_LIB_PATH,,-L,)
+INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH $$MINIUPNPC_INCLUDE_PATH
+LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,) $$join(MINIUPNPC_LIB_PATH,,-L,)
 LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX
 # -lgdi32 has to happen after -lcrypto (see  #681)
 windows:LIBS += -lws2_32 -lshlwapi -lmswsock -lole32 -loleaut32 -luuid -lgdi32 -lminiupnpc -liphlpapi
